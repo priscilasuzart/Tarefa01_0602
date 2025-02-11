@@ -3,6 +3,7 @@
 #include "hardware/pwm.h" //biblioteca para controlar o hardware de PWM
 
 #define SERVO_PIN 22 //pino do servomotor conectado a GPIO 22
+
 const uint16_t WRAP_PERIOD = 24999; //valor máximo do contador - WRAP para 50Hz (20ms)
 const float PWM_DIVISER = 125.0f; //divisor do clock para o PWM (50Hz)
 const uint16_t MIN_PULSE_WIDTH = 500; //largura de pulso para 0 graus (500µs)
@@ -47,6 +48,9 @@ int main() {
 
     // Movimentação periódica suave entre 0 e 180 graus
     while (true) {
+
+        printf("Movimentação periódica entre 0º e 180º\n");
+
         // Movimentação de 0° a 180°
         for (uint16_t pulse_width = MIN_PULSE_WIDTH; pulse_width <= MAX_PULSE_WIDTH; pulse_width += 5) {
             set_servo_angle(pulse_width);
@@ -57,8 +61,9 @@ int main() {
         for (uint16_t pulse_width = MAX_PULSE_WIDTH; pulse_width >= MIN_PULSE_WIDTH; pulse_width -= 5) {
             set_servo_angle(pulse_width);
             sleep_ms(10); // Aguarda 10ms para suavizar a movimentação
-        }
+            }      
     }
+
 
     return 0;
 }
